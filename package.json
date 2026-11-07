@@ -1,0 +1,44 @@
+{
+  "name": "engineering-integrity",
+  "version": "1.0.0",
+  "description": "Evidence-based code audits and bounded corrections for coding agents.",
+  "type": "module",
+  "bin": {
+    "engineering-integrity": "bin/cli.mjs"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "skills/",
+    "assets/",
+    "README.md",
+    "LICENSE",
+    "docs/",
+    "tests/",
+    "scripts/"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "validate": "node scripts/validate.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modalqa/engineering-integrity.git"
+  },
+  "homepage": "https://github.com/modalqa/engineering-integrity#readme",
+  "bugs": {
+    "url": "https://github.com/modalqa/engineering-integrity/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "codex",
+    "claude",
+    "copilot",
+    "cursor",
+    "code-review"
+  ]
+}
