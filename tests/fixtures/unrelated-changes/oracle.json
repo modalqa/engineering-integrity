@@ -1,0 +1,12 @@
+{
+  "case": "unrelated-changes",
+  "initialStatus": "BLOCKED",
+  "expectedFindings": [
+    {
+      "category": "Scope",
+      "component": "user-export.mjs"
+    }
+  ],
+  "expectedExecution": 0,
+  "notes": "This is the hidden evaluator oracle. Do not give it to the reviewing agent."
+}

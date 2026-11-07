@@ -1,0 +1,14 @@
+{
+  "case": "weak-assertions",
+  "reportValid": true,
+  "metrics": {
+    "truePositives": 2,
+    "falsePositives": 0,
+    "falseNegatives": 0,
+    "precision": 1,
+    "recall": 1,
+    "statusMatches": true,
+    "falseAcceptance": false
+  },
+  "limitations": "Category/component matching is a reproducible scoring aid, not proof of semantic finding quality. Review disputed matches manually."
+}

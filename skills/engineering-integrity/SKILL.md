@@ -3,7 +3,7 @@ name: engineering-integrity
 description: Audit completed code against requirements, challenge completion claims, coordinate bounded corrections, and verify evidence. Use after implementation or for an explicit engineering integrity review.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 # Engineering Integrity
 
@@ -16,7 +16,13 @@ Verify what the coding agent delivered. Add an evidence-based quality check to t
 3. Read [integrity review](workflows/integrity-review.md), [finding validation](policies/finding-validation.md), [severity](policies/severity-classification.md), and [safety](policies/safety-policy.md).
 4. Select only applicable auditors from the table below. Record skipped auditors and reasons. Inspect artifacts independently rather than trusting completion summaries.
 5. Consolidate findings. In correction/full mode, follow [correction loop](workflows/correction-loop.md) and [convergence](policies/convergence-policy.md). Audit mode must not edit implementation files.
-6. Follow [verification](workflows/verification.md) and [completion](workflows/completion.md). Produce a report using [audit report](templates/audit-report.md) and [verification report](templates/verification-report.md). Report in chat unless a report file was requested or is an established project convention.
+6. Follow [verification](workflows/verification.md) and [completion](workflows/completion.md). Produce a report using [audit report](templates/audit-report.md) and [verification report](templates/verification-report.md). In full/correction mode, also produce a schemaVersion 1 JSON report following [structured reports](references/structured-report.md). Honor the requested output location or chat-only preference. Audit mode stays read-only except for explicitly requested report artifacts.
+
+## Composable verification layer
+
+After using Superpowers, Ponytail, REA, or any other implementation skill, cross-check the result with Engineering Integrity. Read [ecosystem handoff](references/ecosystem-handoff.md) when work comes from another workflow. This is a portable handoff contract, not a dependency or vendor-specific integration.
+
+For full/correction mode, a JSON report, or a machine acceptance gate, read [structured reports](references/structured-report.md). For high-value assertion checks, read [negative controls](references/negative-controls.md). Neither replaces independent inspection of the actual evidence.
 
 ## Internal auditors
 

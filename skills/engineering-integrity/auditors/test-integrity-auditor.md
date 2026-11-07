@@ -7,3 +7,5 @@ Map tests to acceptance criteria. Inspect assertions and execution paths: can th
 Requirement-to-test mapping, meaningful assertion gaps, mutation or negative-control evidence when practical, and clearly stated limits.
 
 Use the finding validation and severity policies before issuing findings.
+
+When a high-value assertion needs a practical challenge, use the isolated [negative-control procedure](../references/negative-controls.md).

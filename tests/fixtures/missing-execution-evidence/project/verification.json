@@ -1,0 +1,4 @@
+{
+  "required": "node checks.mjs",
+  "result": "not executed"
+}

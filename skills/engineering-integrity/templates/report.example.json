@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "task": {
+    "id": "EXAMPLE-ONLY",
+    "source": "TASK.md",
+    "requirementsComplete": true,
+    "upstreamWorkflow": "Existing implementation workflow"
+  },
+  "snapshot": "snapshot-0",
+  "status": "VERIFIED",
+  "mode": "full",
+  "limits": {
+    "maxIterations": 3,
+    "maxRepeatedAttempts": 2
+  },
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "description": "Return the required result",
+      "mandatory": true,
+      "status": "Verified",
+      "verification": "execution",
+      "implementation": [
+        "pricing.mjs"
+      ],
+      "evidenceIds": [
+        "E-1"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E-1",
+      "snapshot": "snapshot-0",
+      "capturedAt": "2026-01-01T00:00:00Z",
+      "kind": "execution",
+      "outcome": "passed",
+      "description": "Illustrative example only. Replace with actual captured output.",
+      "command": "node checks.mjs",
+      "cwd": "isolated fixture",
+      "exitCode": 0
+    }
+  ],
+  "findings": [],
+  "iterations": [
+    {
+      "round": 0,
+      "snapshot": "snapshot-0",
+      "correctedFindingIds": [],
+      "failedFindingIds": [],
+      "evidenceIds": [
+        "E-1"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "CHECK-1",
+      "required": true,
+      "outcome": "passed",
+      "evidenceIds": [
+        "E-1"
+      ]
+    }
+  ],
+  "scope": {
+    "status": "verified",
+    "evidenceIds": [
+      "E-1"
+    ]
+  },
+  "independence": "same-agent-pass",
+  "limitations": [
+    "The same agent performed the review.",
+    "This example is not evidence of a real application audit."
+  ],
+  "stopReason": "All mandatory gates passed."
+}

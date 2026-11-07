@@ -1,0 +1,12 @@
+{
+  "case": "architecture-violation",
+  "initialStatus": "BLOCKED",
+  "expectedFindings": [
+    {
+      "category": "Architecture",
+      "component": "pricing.mjs"
+    }
+  ],
+  "expectedExecution": 0,
+  "notes": "This is the hidden evaluator oracle. Do not give it to the reviewing agent."
+}

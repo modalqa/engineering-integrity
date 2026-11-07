@@ -1,0 +1,12 @@
+{
+  "case": "unfixed-bug",
+  "initialStatus": "BLOCKED",
+  "expectedFindings": [
+    {
+      "category": "Fix verification",
+      "component": "pricing.mjs"
+    }
+  ],
+  "expectedExecution": 1,
+  "notes": "This is the hidden evaluator oracle. Do not give it to the reviewing agent."
+}

@@ -1,0 +1,7 @@
+{
+  "case": "unavailable-dependency",
+  "initialStatus": "UNVERIFIED",
+  "expectedFindings": [],
+  "expectedExecution": 2,
+  "notes": "This is the hidden evaluator oracle. Do not give it to the reviewing agent."
+}

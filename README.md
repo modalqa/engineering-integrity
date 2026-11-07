@@ -6,7 +6,9 @@
 
 Engineering Integrity is one portable coding-agent skill that reviews completed code against the original requirements. It checks scope, architecture, test quality, regression risks, bug fixes, and completion evidence. When authorized, it coordinates corrections through your existing workflow and verifies the result within a bounded loop.
 
-It works alongside implementation skills. It is not a new coding agent, a test framework, or a guarantee that software has no defects.
+After using Superpowers, Ponytail, REA, or any other coding skill, cross-check the result with Engineering Integrity. It adds a verification layer to the workflow you already use.
+
+Engineering Integrity reviews the delivered code, challenges unsupported completion claims, and returns evidence-backed findings. It is not a guarantee that software has no defects.
 
 ## Install
 
@@ -14,7 +16,7 @@ The installer requires Node.js 20 or newer. The skill itself is Markdown and nee
 
 ### From GitHub
 
-After this repository has been pushed and is accessible, run this from your target project:
+Run this from your target project:
 
 ```sh
 npx --yes --package=github:modalqa/engineering-integrity engineering-integrity install --agent all
@@ -63,6 +65,51 @@ In Codex, refer to $engineering-integrity. Claude Code also supports /engineerin
 
 Provide the original task, acceptance criteria, and an appropriate Git baseline when available. Missing context becomes a verification limitation, not an invented requirement. Non-Git snapshots are supported where practical.
 
+## Use with your existing coding skills
+
+Use your preferred skills to plan and implement. Then ask Engineering Integrity to check the result:
+
+> I have finished implementation using Superpowers, Ponytail, REA, or my other coding skills. Now use engineering-integrity to cross-check the delivered result against the original task, acceptance criteria, actual changes, and current evidence. Challenge unsupported completion claims. Report actionable findings. In full mode, return authorized corrections to the same implementation workflow and verify each correction before accepting it.
+
+You do not need to install or use all of these skills. They are examples, not dependencies or bundled integrations. The [handoff contract](skills/engineering-integrity/references/ecosystem-handoff.md) works through the current agent's capabilities and does not assume vendor-specific hooks.
+
+## Check a structured report
+
+Full and correction mode produce a JSON report using the portable [schema](skills/engineering-integrity/templates/report.schema.json). Choose an output path in your request, or use the default .engineering-integrity/reports/ location. Chat-only output and repository restrictions take precedence. Audit mode writes a report file only when requested.
+
+Check the report locally:
+
+```sh
+node bin/cli.mjs check-report report.json
+```
+
+After npm publication:
+
+```sh
+npx engineering-integrity check-report report.json
+```
+
+The checker rejects false VERIFIED claims when mandatory requirements are incomplete, evidence is missing or from an old snapshot, a blocking finding remains open, required checks are unavailable, or a claimed fix has no verification evidence. It also checks iteration limits and failed-attempt counters.
+
+Exit 0 means the report is internally consistent; an honest BLOCKED or UNVERIFIED report can pass this check. Exit 1 means invalid JSON, invalid structure, or inconsistent claims. The checker never executes commands contained in a report. It cannot prove that evidence is authentic or relevant. See [structured-report guidance](skills/engineering-integrity/references/structured-report.md).
+
+## Test the verification layer
+
+Thirteen executable fixture projects cover the twelve PRD scenarios plus an acceptable-trade-off control. They include deliberately broken implementations, weak assertions, unavailable verification, corrected stages, and recurring defects after renames.
+
+```sh
+node bin/cli.mjs prepare-evaluation weak-assertions ./review-fixture
+# Ask your agent to review review-fixture using engineering-integrity.
+# Save its JSON report outside that fixture, then score it:
+node bin/cli.mjs score-evaluation weak-assertions ./report.json
+```
+
+Preparation withholds the evaluator oracle. Scoring reports true positives, false positives, missed defects, precision, recall, status agreement, and false acceptance. Read [evaluation instructions](tests/scenarios/README.md) before interpreting scores. Fixture execution and ledger tests do not establish cross-agent review accuracy.
+
+Local correction tests execute the failing code, apply a prepared correction in an isolated copy, and rerun assertions. They also verify that an unrelated regression remains open, old findings can reopen, completion claims cannot close findings, and recurring defects stop at the configured limit.
+
+Negative controls deliberately break behavior in an isolated copy to check that important assertions detect it. The strong assertion rejects the mutation; the weak assertion fixture accepts incorrect behavior. Use the [risk-based procedure](skills/engineering-integrity/references/negative-controls.md) rather than mutating the working application.
+
 ## Modes and results
 
 - **audit:** inspect and report without editing implementation files.
@@ -82,7 +129,7 @@ Passing tests alone do not prove requirements were met. Independent reviewers ar
 
 ## Project layout
 
-The [skill entry point](skills/engineering-integrity/SKILL.md) routes to four workflows, seven internal auditors, four policies, three templates, and focused references. Auditors are responsibilities, not seven separately installed skills.
+The [skill entry point](skills/engineering-integrity/SKILL.md) routes to four workflows, seven internal auditors, four policies, report templates, a JSON schema, and focused references. Auditors are responsibilities, not seven separately installed skills.
 
 ## Development and release
 
@@ -94,7 +141,7 @@ npm run validate
 npm pack --dry-run
 ```
 
-Installer tests use temporary projects. [Behavioral scenarios](tests/scenarios/README.md) cover twelve adversarial cases. These require agent evaluation; structural tests do not prove review quality. See [validation](docs/validation.md) for completed checks and limitations.
+Installer, report, fixture, and correction-loop tests run locally in isolated temporary projects. [Behavioral scenarios](tests/scenarios/README.md) explain how to evaluate a real reviewing agent. See [validation](docs/validation.md) for completed checks and limitations.
 
 Repository: [modalqa/engineering-integrity](https://github.com/modalqa/engineering-integrity).
 

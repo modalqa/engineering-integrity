@@ -1,6 +1,6 @@
 # Safety and authorization
 
-Audit mode does not edit implementation files. Run checks only when permitted and after inspecting their side effects. Reports may be written when requested; do not add reports to unrelated application source by default.
+Audit mode does not edit implementation files. Run checks only when permitted and after inspecting their side effects. Audit-mode reports may be written when requested. Full/correction mode writes its JSON report as defined in the structured-report reference, honoring user output preferences and repository rules. Keep reports separate from application source and do not change ignore rules as a side effect.
 
 Correction/full mode permits only corrections within the user's authorized task. Preserve pre-existing user changes. Do not reset, clean, delete, stage, commit, push, publish, deploy, or alter production as a side effect of an integrity review.
 

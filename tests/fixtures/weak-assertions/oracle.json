@@ -1,0 +1,16 @@
+{
+  "case": "weak-assertions",
+  "initialStatus": "BLOCKED",
+  "expectedFindings": [
+    {
+      "category": "Test integrity",
+      "component": "checks.mjs"
+    },
+    {
+      "category": "Requirements",
+      "component": "pricing.mjs"
+    }
+  ],
+  "expectedExecution": 0,
+  "notes": "This is the hidden evaluator oracle. Do not give it to the reviewing agent."
+}

@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "task": {
+    "id": "FIXTURE-WEAK-ASSERTIONS",
+    "source": "tests/fixtures/weak-assertions/project/TASK.md",
+    "requirementsComplete": true,
+    "upstreamWorkflow": "Prepared fixture implementation"
+  },
+  "snapshot": "efdd733ca9a130b3eb26d1d27e0a2a978466ec3fabd01154cf65a2c967beaa07",
+  "status": "BLOCKED",
+  "mode": "audit",
+  "limits": {
+    "maxIterations": 3,
+    "maxRepeatedAttempts": 2
+  },
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "description": "Valid quantity returns quantity multiplied by price",
+      "mandatory": true,
+      "status": "Failed",
+      "verification": "execution",
+      "implementation": [
+        "pricing.mjs"
+      ],
+      "evidenceIds": [
+        "E-contract"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "description": "Reject nonpositive quantities",
+      "mandatory": true,
+      "status": "Not Verifiable",
+      "verification": "execution",
+      "implementation": [
+        "pricing.mjs"
+      ],
+      "evidenceIds": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E-weak",
+      "snapshot": "efdd733ca9a130b3eb26d1d27e0a2a978466ec3fabd01154cf65a2c967beaa07",
+      "capturedAt": "2026-11-07T02:54:24.174Z",
+      "kind": "execution",
+      "outcome": "passed",
+      "command": "node checks.mjs",
+      "cwd": "tests/fixtures/weak-assertions/project",
+      "exitCode": 0,
+      "description": "Weak assertion passed."
+    },
+    {
+      "id": "E-contract",
+      "snapshot": "efdd733ca9a130b3eb26d1d27e0a2a978466ec3fabd01154cf65a2c967beaa07",
+      "capturedAt": "2026-11-07T02:54:24.176Z",
+      "kind": "execution",
+      "outcome": "failed",
+      "command": "node --input-type=module --eval [assert total(3,4) equals 12]",
+      "cwd": "tests/fixtures/weak-assertions/project",
+      "exitCode": 1,
+      "description": "Independent contract assertion: total(3,4) was 7; expected 12."
+    },
+    {
+      "id": "E-inspection",
+      "snapshot": "efdd733ca9a130b3eb26d1d27e0a2a978466ec3fabd01154cf65a2c967beaa07",
+      "capturedAt": "2026-11-07T02:54:24.176Z",
+      "kind": "inspection",
+      "outcome": "observed",
+      "description": "pricing.mjs returns quantity + price. checks.mjs asserts only typeof result is number; it does not assert the required product."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-001",
+      "fingerprint": "incorrect-product",
+      "title": "Valid quantity produces a sum instead of the required product",
+      "category": "Requirements",
+      "severity": "High",
+      "component": "pricing.mjs",
+      "description": "The implementation violates the explicit multiplication contract.",
+      "expected": "total(3,4) returns 12",
+      "actual": "total(3,4) returns 7",
+      "recommendation": "Return the product without changing the quantity contract",
+      "verificationCriteria": "Assert exact values for valid inputs and reject invalid quantities",
+      "verification": "execution",
+      "state": "open",
+      "attempts": 0,
+      "evidenceIds": [
+        "E-contract",
+        "E-inspection"
+      ],
+      "verificationEvidenceIds": []
+    },
+    {
+      "id": "F-002",
+      "fingerprint": "type-only-assertion",
+      "title": "Type-only assertion accepts incorrect pricing behavior",
+      "category": "Test integrity",
+      "severity": "Medium",
+      "component": "checks.mjs",
+      "description": "The test passes with the wrong numeric result.",
+      "expected": "The check rejects incorrect arithmetic",
+      "actual": "node checks.mjs passes while the explicit product assertion fails",
+      "recommendation": "Assert exact observable results and required boundary conditions",
+      "verificationCriteria": "Original correct code passes and sum mutation fails",
+      "verification": "execution",
+      "state": "open",
+      "attempts": 0,
+      "evidenceIds": [
+        "E-weak",
+        "E-contract",
+        "E-inspection"
+      ],
+      "verificationEvidenceIds": []
+    }
+  ],
+  "iterations": [
+    {
+      "round": 0,
+      "snapshot": "efdd733ca9a130b3eb26d1d27e0a2a978466ec3fabd01154cf65a2c967beaa07",
+      "correctedFindingIds": [],
+      "failedFindingIds": [],
+      "evidenceIds": [
+        "E-weak",
+        "E-contract",
+        "E-inspection"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "CHECK-weak",
+      "required": true,
+      "outcome": "passed",
+      "evidenceIds": [
+        "E-weak"
+      ]
+    },
+    {
+      "id": "CHECK-contract",
+      "required": true,
+      "outcome": "failed",
+      "evidenceIds": [
+        "E-contract"
+      ]
+    }
+  ],
+  "scope": {
+    "status": "unknown",
+    "evidenceIds": [
+      "E-inspection"
+    ]
+  },
+  "independence": "same-agent-pass",
+  "limitations": [
+    "Same-agent review of a known seeded fixture; not an unbiased detection benchmark.",
+    "Only the documented arithmetic assertion was independently executed; full boundary coverage was not established.",
+    "No original Git scope baseline was available for this toy project."
+  ],
+  "stopReason": "Audit completed with a confirmed requirement failure and weak assertion."
+}

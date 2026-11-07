@@ -1,0 +1,7 @@
+{
+  "case": "missing-execution-evidence",
+  "initialStatus": "UNVERIFIED",
+  "expectedFindings": [],
+  "expectedExecution": 0,
+  "notes": "This is the hidden evaluator oracle. Do not give it to the reviewing agent."
+}
