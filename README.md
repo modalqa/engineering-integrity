@@ -86,6 +86,8 @@ The [skill entry point](skills/engineering-integrity/SKILL.md) routes to four wo
 
 ## Development and release
 
+Run validation locally. GitHub Actions is not configured or required.
+
 ```sh
 npm test
 npm run validate

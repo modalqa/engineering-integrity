@@ -19,7 +19,7 @@ Independent review was unavailable; the same assistant used a separate review pa
 
 The bundled skill-creator Python validator could not run because its environment lacks PyYAML. The dependency-free local validator ran instead. No Python packages were installed. The default npm shim referenced a missing npm-cli.js; packaging used the CLI bundled with installed Node.js and a temporary cache without changing system configuration.
 
-Registry publication and remote CI success require separate verification. A local tarball does not prove an npm release.
+Validation runs locally. This repository does not configure or require GitHub Actions. Registry publication requires separate verification; a local tarball does not prove an npm release.
 
 ## PRD acceptance coverage
 
